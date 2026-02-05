@@ -214,7 +214,7 @@ IBM-MCP-Client/
 
 **Need help?**
 - Check logs: `docker logs ibm-mcp-client`
-- Contact: ashrivastava@ibm.com
+- Contact: ashrivastava@in.ibm.com
 
 ---
 
