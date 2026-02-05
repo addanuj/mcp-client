@@ -161,29 +161,6 @@ Create `~/.mcp-client/config.json`:
 
 ---
 
-## 📁 Project Structure
-
-```
-IBM-MCP-Client/
-├── Dockerfile              # Multi-stage build (Frontend + Backend)
-├── docker-compose.yml      # Full stack deployment
-├── frontend/
-│   ├── src/
-│   │   ├── components/     # React components (Chat, Sidebar)
-│   │   ├── App.tsx         # Main app
-│   │   └── main.tsx        # Entry point
-│   └── package.json
-├── backend/
-│   ├── app/
-│   │   ├── main.py         # FastAPI app
-│   │   ├── langgraph_agent.py  # LLM agent with tool calling
-│   │   └── mcp_client.py   # MCP protocol client
-│   └── requirements.txt
-└── README.md
-```
-
----
-
 ## 🔍 Features
 
 - **Natural Language Queries** - Ask questions in plain English
