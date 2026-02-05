@@ -201,4 +201,3 @@ Create `~/.mcp-client/config.json`:
 
 - NOT for production use
 - No warranty or support guarantees
-- Use at your own risk
