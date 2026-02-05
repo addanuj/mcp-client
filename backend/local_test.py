@@ -13,14 +13,14 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from app.langgraph_agent import LangGraphAgent, MCPClient
 
 # OpenRouter API key (from config)
-OPENROUTER_KEY = "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"
+OPENROUTER_KEY = "your-openrouter-api-key-here"
 
 # IBM MCP Server path
 MCP_SERVER_PATH = "/Users/anujshrivastava/code/QRadar-MCP/QRadar-MCP-Server"
 
 # QRadar credentials
 QRADAR_HOST = "https://useast.services.cloud.techzone.ibm.com:23768"
-QRADAR_TOKEN = "4edfffda-86ee-4d63-ae3c-740622ba4563"
+QRADAR_TOKEN = "your-qradar-api-token-here"
 
 # Models to test
 MODELS = [

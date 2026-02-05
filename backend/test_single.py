@@ -15,13 +15,13 @@ async def test_one_model(model_id, model_name):
         args=["-m", "src.server"],
         env={
             "QRADAR_HOST": "https://useast.services.cloud.techzone.ibm.com:23768",
-            "QRADAR_API_TOKEN": "4edfffda-86ee-4d63-ae3c-740622ba4563",
+            "QRADAR_API_TOKEN": "your-qradar-api-token-here",
         },
         cwd="/Users/anujshrivastava/code/QRadar-MCP/QRadar-MCP-Server"
     )
     
     agent = LangGraphAgent(
-        api_key="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",
+        api_key="your-openrouter-api-key-here",
         model_id=model_id,
         base_url="https://openrouter.ai/api/v1",
         mcp_client=mcp_client

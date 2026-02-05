@@ -2,7 +2,7 @@
 FROM node:20-alpine AS frontend-builder
 
 LABEL org.opencontainers.image.source=https://github.com/addanuj/qradar-mcp-server
-LABEL org.opencontainers.image.description="IBM MCP Client - React + FastAPI Web UI for MCP Servers"
+LABEL org.opencontainers.image.description="MCP Client - React + FastAPI Web UI for MCP Servers"
 
 WORKDIR /app/frontend
 

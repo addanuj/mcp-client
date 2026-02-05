@@ -15,7 +15,7 @@ export default function Header() {
   const { sidebarOpen, toggleSidebar, openSettings } = useUIStore();
 
   return (
-    <CarbonHeader aria-label="IBM MCP Client">
+    <CarbonHeader aria-label="MCP Client">
       <HeaderGlobalAction
         aria-label={sidebarOpen ? 'Close sidebar' : 'Open sidebar'}
         onClick={toggleSidebar}
@@ -24,7 +24,7 @@ export default function Header() {
       </HeaderGlobalAction>
       
       <HeaderName href="/" prefix="">
-        IBM MCP Client
+        MCP Client
       </HeaderName>
 
       <HeaderGlobalBar>

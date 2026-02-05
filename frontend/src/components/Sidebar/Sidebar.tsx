@@ -44,7 +44,7 @@ export default function Sidebar({ collapsed }: SidebarProps) {
       <div className="sidebar__footer">
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--cds-text-secondary)', fontSize: '0.75rem' }}>
           <Chat size={16} />
-          <span>IBM MCP Client v1.0</span>
+          <span>MCP Client v1.0</span>
         </div>
       </div>
     </aside>

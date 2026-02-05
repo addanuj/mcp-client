@@ -1,4 +1,4 @@
-# IBM MCP Client
+# MCP Client
 
 **Web UI for interacting with QRadar SIEM via MCP (Model Context Protocol)**
 
@@ -8,7 +8,7 @@ A React + FastAPI application that provides a ChatGPT-like interface to query yo
 
 ## 🎯 What is This?
 
-IBM MCP Client is the **user-facing web application** that connects to the QRadar MCP Server. It allows security analysts to ask questions in plain English and get instant answers from QRadar.
+MCP Client is the **user-facing web application** that connects to the QRadar MCP Server. It allows security analysts to ask questions in plain English and get instant answers from QRadar.
 
 ### Example Queries
 - *"Show me top 10 offenses"*
@@ -98,7 +98,7 @@ http://localhost:8000
 ```bash
 # Clone repository
 git clone https://github.ibm.com/ashrivastava/IBM-MCP-Client.git
-cd IBM-MCP-Client
+cd MCP-Client
 
 # Build the image
 docker build -t ibm-mcp-client:latest .

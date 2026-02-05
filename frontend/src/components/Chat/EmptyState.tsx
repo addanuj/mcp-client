@@ -12,7 +12,7 @@ export default function EmptyState({ onNewChat }: EmptyStateProps) {
   return (
     <div className="empty-state">
       <Security size={64} className="empty-state__icon" />
-      <h1 className="empty-state__title">IBM MCP Client</h1>
+      <h1 className="empty-state__title">MCP Client</h1>
       <p className="empty-state__description">
         Chat with your QRadar SIEM using natural language. Ask about offenses, 
         search events, manage reference data, and more.

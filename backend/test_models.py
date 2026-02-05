@@ -41,7 +41,7 @@ WATSONX_CONFIG = {
 
 # Config for OpenRouter
 OPENROUTER_CONFIG = {
-    "api_key": "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",
+    "api_key": "your-openrouter-api-key-here",
     "base_url": "https://openrouter.ai/api/v1"
 }
 
@@ -184,7 +184,7 @@ def test_model(provider: str, model_id: str, name: str) -> dict:
 def main():
     print(f"""
 ╔══════════════════════════════════════════════════════════════════════╗
-║           IBM MCP Agent - Multi-Model Test Suite                  ║
+║           MCP Agent - Multi-Model Test Suite                      ║
 ║                                                                       ║
 ║  Goal: Find the best cost-effective model with tool calling support   ║
 ║  Tests: {len(TEST_QUERIES)} queries × {len(MODELS_TO_TEST)} models = {len(TEST_QUERIES) * len(MODELS_TO_TEST)} total tests            ║
