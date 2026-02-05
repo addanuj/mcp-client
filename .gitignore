@@ -44,3 +44,7 @@ venv/
 .venv/
 env/
 ENV/
+# Project documentation files - no longer needed
+FYRE_SSH_GUIDE.md
+PROJECT_PLAN.md
+PROJECT_STATUS.md
