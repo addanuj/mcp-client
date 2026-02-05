@@ -1,18 +1,46 @@
+# Python
 __pycache__/
 *.pyc
+*.py[cod]
+*$py.class
+.Python
+build/
+*.egg-info/
+
+# Node.js
 node_modules/
+dist/
+.next/
+build/
+
+# Environment and secrets
 .env
 *.env
 .env.*
+
+# Logs
 *.log
-dist/
-
-# Documentation (push only when instructed)
-*.md
-
-# Images folder
-image/
+npm-debug.log*
 
 # Temp files
 *.tmp
 *.bak
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# CI/CD (do not push)
+.github/
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
