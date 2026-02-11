@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import { Toggle } from '@carbon/react';
 
 export default function PreferencesPanel() {
-  const [isDarkTheme, setIsDarkTheme] = useState(true);
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem('ibm-mcp-theme');
-    setIsDarkTheme(saved !== 'light');
+    setIsDarkTheme(saved === 'dark');
   }, []);
 
   const handleThemeChange = (checked: boolean) => {

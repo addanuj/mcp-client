@@ -42,6 +42,10 @@ class ChatRequest(BaseModel):
     model_id: Optional[str] = None
 
 
+class ChatStreamRequest(BaseModel):
+    message: str
+
+
 class ChatResponse(BaseModel):
     chat_id: str
     message: Message

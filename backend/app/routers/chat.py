@@ -7,6 +7,7 @@ import json
 import uuid
 import os
 from datetime import datetime
+import logging
 
 from app.models.schemas import ChatRequest, ChatResponse, Message, MessageRole
 from app.langgraph_agent import LangGraphAgent, create_mcp_client
@@ -14,6 +15,7 @@ from app import config_store
 from app.session_memory import get_session, clear_session
 from app.conversation_handler import needs_clarification, extract_intent
 
+logger = logging.getLogger(__name__)
 router = APIRouter()
 
 
@@ -117,7 +119,7 @@ async def get_agent() -> Optional[LangGraphAgent]:
             "containerRuntime": mcp_config.get("containerRuntime", "podman"),
         }
         
-        print(f"[Chat] Creating MCP client: transport={transport}, config={client_config}")
+        logger.info(f"Creating MCP client - transport={transport}, serverUrl={client_config.get('serverUrl')}")
         
         mcp_client = create_mcp_client(client_config)
         
@@ -145,15 +147,15 @@ async def get_agent() -> Optional[LangGraphAgent]:
         return _agent
         
     except Exception as e:
-        print(f"Failed to create agent: {e}")
-        import traceback
-        traceback.print_exc()
+        logger.error(f"Failed to create agent: {e}", exc_info=True)
         return None
 
 
 @router.post("/", response_model=ChatResponse)
 async def send_message(request: ChatRequest):
     """Send a chat message and get AI response."""
+    
+    logger.info(f"[CHAT] New message - chat_id={request.chat_id or 'new'}, message='{request.message[:100]}...'")
     
     # Generate or use existing chat ID
     chat_id = request.chat_id or str(uuid.uuid4())
@@ -199,6 +201,7 @@ async def send_message(request: ChatRequest):
     agent = await get_agent()
     
     if agent:
+        logger.info(f"[CHAT] Agent initialized successfully - chat_id={chat_id}")
         try:
             # Use the LangGraph agent
             response = await agent.chat(request.message)
@@ -207,12 +210,15 @@ async def send_message(request: ChatRequest):
             content = response.get("content", "")
             tools_called = response.get("tools_called", [])
             
+            logger.info(f"[CHAT] Response generated - chat_id={chat_id}, tools_called={len(tools_called)}")
+            
             if tools_called:
                 content += "\n\n---\n*Tools used:*\n"
                 for tc in tools_called:
                     status = tc.get("status", "unknown")
                     if status == "error":
                         content += f"- {tc['name']}: ❌ Error - {tc.get('error', 'unknown')}\n"
+                        logger.warning(f"[CHAT] Tool error - chat_id={chat_id}, tool={tc['name']}, error={tc.get('error')}")
                     else:
                         content += f"- {tc['name']}: ✅ Success\n"
             
@@ -230,8 +236,7 @@ async def send_message(request: ChatRequest):
                 tool_calls=tools_called
             )
         except Exception as e:
-            import traceback
-            traceback.print_exc()
+            logger.error(f"[CHAT] Error processing request - chat_id={chat_id}: {e}", exc_info=True)
             assistant_message = Message(
                 id=str(uuid.uuid4()),
                 role=MessageRole.ASSISTANT,
@@ -240,6 +245,9 @@ async def send_message(request: ChatRequest):
             )
     else:
         # Fallback: No agent configured
+        logger.warning(f"[CHAT] Agent not configured - chat_id={chat_id}")
+        logger.warning(f"[CHAT] Available models: {len(config_store.get_llm_models())}")
+        logger.warning(f"[CHAT] Available MCP servers: {len(config_store.get_mcp_servers())}")
         assistant_message = Message(
             id=str(uuid.uuid4()),
             role=MessageRole.ASSISTANT,

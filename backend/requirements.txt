@@ -4,7 +4,4 @@ pydantic
 pydantic-settings
 httpx
 python-multipart
-openai
-langgraph
-langchain
-langchain-openai
+pydantic-ai-slim[openai,mcp]>=0.0.14

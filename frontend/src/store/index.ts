@@ -287,7 +287,7 @@ interface UIState {
 
 export const useUIStore = create<UIState>((set) => ({
   sidebarOpen: true,
-  rightPanelOpen: false,
+  rightPanelOpen: true,
   settingsOpen: false,
   settingsTab: 'qradar',
 

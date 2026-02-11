@@ -2,30 +2,44 @@ version: '3.8'
 
 services:
   mcp-client:
-    image: ghcr.io/addanuj/mcp-client:latest
-    container_name: mcp-client
+    image: ${GHCR_IMAGE_NAME:-ghcr.io/anujshrivastava15/mcp-client}:${DOCKER_IMAGE_TAG:-latest}
+    container_name: ${DOCKER_CONTAINER_NAME:-mcp-client}
     ports:
-      - "8000:8000"
+      - "${APP_PORT:-8000}:8000"
     volumes:
       - mcp-client-data:/root/.mcp-client
+      - mcp-client-logs:/var/log/mcp-client
     environment:
       - CONFIG_DIR=/root/.mcp-client
+      - MCP_SERVER_URL=${MCP_SERVER_URL:-http://mcp-server:8001}
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - DEFAULT_MODEL=${DEFAULT_MODEL:-anthropic/claude-sonnet-4.5}
+      - NODE_ENV=${NODE_ENV:-production}
+    env_file:
+      - .env
     depends_on:
       - mcp-server
     networks:
       - mcp-network
+    restart: unless-stopped
 
   mcp-server:
-    image: ghcr.io/addanuj/qradar-mcp-server:latest
+    image: ghcr.io/anujshrivastava15/qradar-mcp-server:latest
     container_name: qradar-mcp-server
     environment:
       - QRADAR_HOST=${QRADAR_HOST}
       - QRADAR_API_TOKEN=${QRADAR_API_TOKEN}
+      - QRADAR_VERIFY_SSL=${QRADAR_VERIFY_SSL:-false}
+    env_file:
+      - .env
     networks:
       - mcp-network
+    restart: unless-stopped
 
 volumes:
   mcp-client-data:
+    driver: local
+  mcp-client-logs:
     driver: local
 
 networks:

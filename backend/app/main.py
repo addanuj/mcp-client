@@ -13,14 +13,22 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from pathlib import Path
 import os
+import logging
 
-from app.routers import chat, connections, mcp
+from app.routers import chat_new as chat, connections, mcp
+from app.logging_config import setup_logging, get_logger
+
+# Setup centralized logging FIRST before anything else
+setup_logging(log_level=logging.INFO)
+logger = get_logger(__name__)
 
 app = FastAPI(
     title="IBM MCP Client API",
     description="Backend API for IBM MCP Client",
     version="1.0.0"
 )
+
+logger.info("FastAPI application initialized")
 
 # CORS for frontend
 app.add_middleware(
@@ -30,6 +38,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+logger.info("CORS middleware configured")
 
 # Include routers
 app.include_router(chat.router, prefix="/api/chat", tags=["chat"])

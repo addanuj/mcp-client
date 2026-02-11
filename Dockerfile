@@ -1,7 +1,7 @@
 # Stage 1: Build Frontend
 FROM node:20-alpine AS frontend-builder
 
-LABEL org.opencontainers.image.source=https://github.com/addanuj/qradar-mcp-server
+LABEL org.opencontainers.image.source=https://github.com/anujshrivastava15/qradar-mcp-server
 LABEL org.opencontainers.image.description="MCP Client - React + FastAPI Web UI for MCP Servers"
 
 WORKDIR /app/frontend
@@ -23,9 +23,10 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-# Install system dependencies
+# Install system dependencies + Docker CLI (static binary for MCP stdio transport)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     curl \
+    && curl -fsSL https://download.docker.com/linux/static/stable/x86_64/docker-27.5.1.tgz | tar xz --strip-components=1 -C /usr/local/bin docker/docker \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy backend requirements and install
@@ -37,6 +38,9 @@ COPY backend/app ./app
 
 # Copy built frontend from Stage 1
 COPY --from=frontend-builder /app/frontend/dist ./static
+
+# Create log directory
+RUN mkdir -p /var/log/mcp-client && chmod 777 /var/log/mcp-client
 
 # Create config directory
 RUN mkdir -p /root/.mcp-client

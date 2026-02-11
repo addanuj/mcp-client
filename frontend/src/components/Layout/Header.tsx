@@ -8,11 +8,12 @@ import {
   Settings,
   SidePanelOpen,
   SidePanelClose,
+  Information,
 } from '@carbon/icons-react';
 import { useUIStore } from '../../store';
 
 export default function Header() {
-  const { sidebarOpen, toggleSidebar, openSettings } = useUIStore();
+  const { sidebarOpen, rightPanelOpen, toggleSidebar, toggleRightPanel, openSettings } = useUIStore();
 
   return (
     <CarbonHeader aria-label="MCP Client">
@@ -28,6 +29,13 @@ export default function Header() {
       </HeaderName>
 
       <HeaderGlobalBar>
+        <HeaderGlobalAction
+          aria-label={rightPanelOpen ? 'Hide info panel' : 'Show info panel'}
+          onClick={toggleRightPanel}
+        >
+          <Information size={20} />
+        </HeaderGlobalAction>
+        
         <HeaderGlobalAction
           aria-label="Settings"
           onClick={() => openSettings('qradar')}

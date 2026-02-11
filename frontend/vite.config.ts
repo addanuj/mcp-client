@@ -14,7 +14,8 @@ export default defineConfig({
     port: 5173,
     proxy: {
       '/api': {
-        target: 'http://localhost:8000',
+        // Use environment variable or default to Fyre VM
+        target: process.env.VITE_API_URL || 'http://9.30.147.112:8000',
         changeOrigin: true,
       },
     },

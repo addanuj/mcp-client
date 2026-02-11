@@ -1,3 +1,3 @@
 """Routers package."""
 
-from . import chat, connections, mcp
+from . import chat_new, connections, mcp
